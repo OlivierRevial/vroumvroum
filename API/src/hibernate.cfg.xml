@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+     "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+    
+<hibernate-configuration>
+  <session-factory>
+    <!--  Paramètres de connexion à la base de données -->
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost/vroumvroum</property>
+    <property name="hibernate.connection.username">root</property>
+    <property name="hibernate.connection.password"></property>
+    <property name="hibernate.enable_lazy_load_no_trans">true</property>
+
+    <!-- Comportement pour la conservation des tables -->
+    <property name="hbm2ddl.auto">update</property>
+
+    <!-- Fichiers à mapper -->
+    <mapping class="fr.ingesup.vroumvroum.ws.models.Address" />
+    <mapping class="fr.ingesup.vroumvroum.ws.models.City" />
+    <mapping class="fr.ingesup.vroumvroum.ws.models.Country" />
+    <mapping class="fr.ingesup.vroumvroum.ws.models.Department" />
+    <mapping class="fr.ingesup.vroumvroum.ws.models.Event" />
+    <mapping class="fr.ingesup.vroumvroum.ws.models.Invitation" />
+    <mapping class="fr.ingesup.vroumvroum.ws.models.Location" />
+    <mapping class="fr.ingesup.vroumvroum.ws.models.User" />
+  </session-factory>
+</hibernate-configuration>
