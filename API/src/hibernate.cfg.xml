@@ -17,13 +17,21 @@
     <property name="hbm2ddl.auto">update</property>
 
     <!-- Fichiers à mapper -->
-    <mapping class="fr.ingesup.vroumvroum.ws.models.Address" />
-    <mapping class="fr.ingesup.vroumvroum.ws.models.City" />
-    <mapping class="fr.ingesup.vroumvroum.ws.models.Country" />
-    <mapping class="fr.ingesup.vroumvroum.ws.models.Department" />
-    <mapping class="fr.ingesup.vroumvroum.ws.models.Event" />
-    <mapping class="fr.ingesup.vroumvroum.ws.models.Invitation" />
-    <mapping class="fr.ingesup.vroumvroum.ws.models.Location" />
-    <mapping class="fr.ingesup.vroumvroum.ws.models.User" />
+    <!-- Events related classes -->
+    <mapping class="fr.ingesup.vroumvroum.ws.models.events.Comment" />
+    <mapping class="fr.ingesup.vroumvroum.ws.models.events.Event" />
+    <mapping class="fr.ingesup.vroumvroum.ws.models.events.EventRide" />
+    <mapping class="fr.ingesup.vroumvroum.ws.models.events.Invitation" />
+    <mapping class="fr.ingesup.vroumvroum.ws.models.events.Ride" />
+    <mapping class="fr.ingesup.vroumvroum.ws.models.events.RideAddress" />
+    <!-- Localization related classes -->
+    <mapping class="fr.ingesup.vroumvroum.ws.models.localization.Address" />
+    <mapping class="fr.ingesup.vroumvroum.ws.models.localization.City" />
+    <mapping class="fr.ingesup.vroumvroum.ws.models.localization.Coordinates" />
+    <mapping class="fr.ingesup.vroumvroum.ws.models.localization.Country" />
+    <mapping class="fr.ingesup.vroumvroum.ws.models.localization.Department" />
+    <mapping class="fr.ingesup.vroumvroum.ws.models.localization.Region" />
+    <!-- User related classes -->
+    <mapping class="fr.ingesup.vroumvroum.ws.models.user.User" />
   </session-factory>
 </hibernate-configuration>

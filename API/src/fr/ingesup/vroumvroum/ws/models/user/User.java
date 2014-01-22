@@ -1,6 +1,7 @@
-package fr.ingesup.vroumvroum.ws.models;
+package fr.ingesup.vroumvroum.ws.models.user;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,14 +10,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.codehaus.jettison.json.JSONException;
-import org.codehaus.jettison.json.JSONObject;
-
+import fr.ingesup.vroumvroum.ws.models.events.Event;
+import fr.ingesup.vroumvroum.ws.models.localization.Address;
 import fr.ingesup.vroumvroum.ws.utils.SQL;
 
 
@@ -53,41 +55,30 @@ public class User {
 	@Column(name=SQL.User.COLUMN.PASSWORD)
 	private String password;
 
-	@OneToOne(fetch=FetchType.EAGER)
+	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn (
 			name=SQL.User.COLUMN.ADDRESS,
 			referencedColumnName=SQL.Address.COLUMN._ID)
 	private Address address;
 
+	@ManyToMany(mappedBy="participants")
+	private Set<Event> participatingEvents;
+	
+	@ManyToMany(mappedBy="organisers")
+	private Set<Event> organisingEvents;
+	
+	@ManyToMany(mappedBy="guests")
+	private Set<Event> invitedEvents;
 
-	public User() {
-	}
+	@OneToMany(mappedBy="owner")
+	private Set<Event> createdEvents;
 
-	public User(JSONObject userJSON)
-	{
-		try {
-			if(userJSON.has(SQL.User.COLUMN._ID))
-				this.id = userJSON.getInt(SQL.User.COLUMN._ID);
-			if(userJSON.has(SQL.User.COLUMN.FIRST_NAME))
-				this.firstName = userJSON.getString(SQL.User.COLUMN.FIRST_NAME);
-			if(userJSON.has(SQL.User.COLUMN.LAST_NAME))
-				this.lastName = userJSON.getString(SQL.User.COLUMN.LAST_NAME);
-			if(userJSON.has(SQL.User.COLUMN.BIRTHDATE))
-				this.birthdate = new Date(userJSON.getString(SQL.User.COLUMN.BIRTHDATE));
-			if(userJSON.has(SQL.User.COLUMN.EMAIL))
-				this.email = userJSON.getString(SQL.User.COLUMN.EMAIL);
-			if(userJSON.has(SQL.User.COLUMN.PASSWORD))
-				this.password = userJSON.getString(SQL.User.COLUMN.PASSWORD);
-			if(userJSON.has(SQL.User.COLUMN.PHONE_NUMBER))
-				this.phoneNumber = userJSON.getString(SQL.User.COLUMN.PHONE_NUMBER);
-
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public Integer getId() {
+	public int getId() {
 		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getFacebookId() {
@@ -122,20 +113,20 @@ public class User {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public Date getBirthdate() {
-		return birthdate;
-	}
-
-	public void setBirthdate(Date birthdate) {
-		this.birthdate = birthdate;
-	}
-
 	public String getEmail() {
 		return email;
 	}
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Date getBirthdate() {
+		return birthdate;
+	}
+
+	public void setBirthdate(Date birthdate) {
+		this.birthdate = birthdate;
 	}
 
 	public String getPassword() {
@@ -154,21 +145,35 @@ public class User {
 		this.address = address;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public Set<Event> getParticipatingEvents() {
+		return participatingEvents;
 	}
-	
-	@Override
-	public String toString() {
-		String returnString = "";
 
-		returnString += "ID : " + this.id + "\n";
-		returnString += "FIRST NAME : " + this.firstName + "\n";
-		returnString += "LAST NAME : " + this.lastName + "\n";
-		returnString += "PASSWORD : " + this.password + "\n";
-		returnString += "PHONE NUMBER : " + this.phoneNumber + "\n";
-		returnString += "EMAIL : " + this.email;
+	public void setParticipatingEvents(Set<Event> participatingEvents) {
+		this.participatingEvents = participatingEvents;
+	}
 
-		return returnString;
+	public Set<Event> getOrganisingEvents() {
+		return organisingEvents;
+	}
+
+	public void setOrganisingEvents(Set<Event> organisingEvents) {
+		this.organisingEvents = organisingEvents;
+	}
+
+	public Set<Event> getInvitedEvents() {
+		return invitedEvents;
+	}
+
+	public void setInvitedEvents(Set<Event> invitedEvents) {
+		this.invitedEvents = invitedEvents;
+	}
+
+	public Set<Event> getCreatedEvents() {
+		return createdEvents;
+	}
+
+	public void setCreatedEvents(Set<Event> createdEvents) {
+		this.createdEvents = createdEvents;
 	}
 }

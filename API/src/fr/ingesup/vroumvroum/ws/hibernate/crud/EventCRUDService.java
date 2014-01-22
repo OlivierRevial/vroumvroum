@@ -6,7 +6,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.TypeMismatchException;
 
 import fr.ingesup.vroumvroum.ws.exceptions.NoSuchIdException;
-import fr.ingesup.vroumvroum.ws.models.Event;
+import fr.ingesup.vroumvroum.ws.models.events.Event;
 import fr.ingesup.vroumvroum.ws.utils.Log;
 
 public class EventCRUDService {

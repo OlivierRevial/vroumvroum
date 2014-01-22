@@ -15,6 +15,10 @@ public interface SQL {
 			public static final String NUMBER_PARTICIPANTS = "number_participants";
 			public static final String DATE_START = "date_start";
 			public static final String DATE_END = "date_end";
+			public static final String PLACE_START = "place_start";
+			public static final String CREATED_AT = "created_at";
+			public static final String UPDATED_AT = "updated_at";
+			public static final String OWNER = "owner";
 		}
 	}
 	
@@ -77,11 +81,11 @@ public interface SQL {
 		
 		public interface COLUMN {
 			public static final String _ID = "id";
-			public static final String LINE_PRINCIPAL = "line_principal";
+			public static final String ADDRESS = "line_principal";
 			public static final String LINE_COMPLEMENT = "line_complement";
 			public static final String POSTAL_CODE = "postal_code";
 			public static final String CITY = "city";
-			public static final String LOCATION = "location_id";
+			public static final String COORDINATES = "location_id";
 		}
 	}
 	
@@ -104,9 +108,9 @@ public interface SQL {
 		}
 	}
 	
-	public interface Location {
+	public interface Coordinates {
 		public interface TABLE {
-			public static final String NAME = "location";
+			public static final String NAME = "coordinates";
 		}
 		
 		public interface COLUMN {

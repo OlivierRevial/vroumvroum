@@ -1,4 +1,4 @@
-package fr.ingesup.vroumvroum.ws.models;
+package fr.ingesup.vroumvroum.ws.models.localization;
 
 import java.util.Set;
 
@@ -36,7 +36,7 @@ public class Country {
 	private String codeAlpha3;
 
 	@OneToMany(mappedBy="country")
-	private Set<City> cities;
+	private Set<Region> regions;
 
 	public short getId() {
 		return id;
@@ -86,11 +86,12 @@ public class Country {
 		this.codeAlpha3 = codeAlpha3;
 	}
 
-	public Set<City> getCities() {
-		return cities;
+	public Set<Region> getRegions() {
+		return regions;
 	}
 
-	public void setCities(Set<City> cities) {
-		this.cities = cities;
+	public void setRegions(Set<Region> regions) {
+		this.regions = regions;
 	}
+
 }

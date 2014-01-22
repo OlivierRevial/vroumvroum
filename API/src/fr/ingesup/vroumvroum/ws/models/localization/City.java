@@ -1,4 +1,4 @@
-package fr.ingesup.vroumvroum.ws.models;
+package fr.ingesup.vroumvroum.ws.models.localization;
 
 import java.util.Set;
 
@@ -30,18 +30,11 @@ public class City {
 	@ManyToOne(
 			cascade={
 					CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH },
-					fetch=FetchType.EAGER)
+					fetch=FetchType.LAZY)
 	@JoinColumn(name=SQL.City.COLUMN.DEPARTMENT)
 	private Department department;
 
-	@ManyToOne(
-			cascade={
-					CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH },
-					fetch=FetchType.EAGER)
-	@JoinColumn(name=SQL.City.COLUMN.COUNTRY)
-	private Country country;
-
-	@OneToMany(fetch=FetchType.EAGER, mappedBy="city")
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="city")
 	private Set<Address> addresses;
 
 	public String getName() {
@@ -74,14 +67,6 @@ public class City {
 
 	public void setDepartment(Department department) {
 		this.department = department;
-	}
-
-	public Country getCountry() {
-		return country;
-	}
-
-	public void setCountry(Country country) {
-		this.country = country;
 	}
 
 	public Set<Address> getAddresses() {

@@ -20,7 +20,7 @@ import org.codehaus.jettison.json.JSONArray;
 import fr.ingesup.vroumvroum.ws.exceptions.JsonException;
 import fr.ingesup.vroumvroum.ws.exceptions.NoSuchIdException;
 import fr.ingesup.vroumvroum.ws.hibernate.crud.EventCRUDService;
-import fr.ingesup.vroumvroum.ws.models.Event;
+import fr.ingesup.vroumvroum.ws.models.events.Event;
 import fr.ingesup.vroumvroum.ws.utils.JSONUtils;
 import fr.ingesup.vroumvroum.ws.utils.URLUtils;
 

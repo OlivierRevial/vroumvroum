@@ -3,8 +3,8 @@ package fr.ingesup.vroumvroum.ws.hibernate;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import fr.ingesup.vroumvroum.ws.models.Event;
-import fr.ingesup.vroumvroum.ws.models.User;
+import fr.ingesup.vroumvroum.ws.models.events.Event;
+import fr.ingesup.vroumvroum.ws.models.user.User;
 
 public class MainTest {
 	private static Session s = null;
