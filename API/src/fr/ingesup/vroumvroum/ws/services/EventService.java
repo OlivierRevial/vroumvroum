@@ -1,29 +1,86 @@
 package fr.ingesup.vroumvroum.ws.services;
 
-import java.util.List;
+import java.net.URI;
+import java.net.URISyntaxException;
 
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import org.codehaus.jettison.json.JSONArray;
 
-import fr.ingesup.vroumvroum.ws.hibernate.crud.MenuCRUDService;
+import fr.ingesup.vroumvroum.ws.exceptions.JsonException;
+import fr.ingesup.vroumvroum.ws.exceptions.NoSuchIdException;
+import fr.ingesup.vroumvroum.ws.hibernate.crud.EventCRUDService;
 import fr.ingesup.vroumvroum.ws.models.Event;
+import fr.ingesup.vroumvroum.ws.utils.JSONUtils;
+import fr.ingesup.vroumvroum.ws.utils.URLUtils;
 
-@Path("/events")
+@Path(URLUtils.SERVICE_EVENT_URL)
 public class EventService {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public JSONArray getAllEvents() {
-		System.out.println("In get JSON for /view/{restaurantKey}/all");
-
-		List<Event> allEvents = MenuCRUDService.findAllEvents();
-		JSONArray allEventsArray = new JSONArray();
-		for(Event event : allEvents) {
-			allEventsArray.put(event.toJSON());
+	public JSONArray getEvents() {
+		return JSONUtils.convertListToJSON(EventCRUDService.findAll());
+	}
+	
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response createEvent(String eventStr) throws URISyntaxException {
+		try {
+			Event event = JSONUtils.convertJSONToObject(eventStr, Event.class);
+			int insertedId = EventCRUDService.save(event);
+			return Response.created(new URI(String.valueOf(insertedId))).build();
+		} catch (JsonException e) {
+			return Response.status(e.getStatusCode()).build();
 		}
-		return allEventsArray;
+	}
+	
+	@GET
+	@Path("{id}")
+	public Response getEvent(@PathParam("id") int id) {
+		try {
+			Event event = EventCRUDService.findById(id);
+			return Response.ok(event.toJSON()).build();
+		} catch (NoSuchIdException e) {
+			return Response.status(Status.NOT_FOUND).build();
+		}
+	}
+	
+	@PUT
+	@Path("{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response updateEvent(String eventStr, @PathParam("id") int id) {
+		try {
+			Event event = JSONUtils.convertJSONToObject(eventStr, Event.class);
+			event.setId(id);
+			event = EventCRUDService.update(event);
+			return Response.ok(event).build();
+		} catch (JsonException e) {
+			return Response.status(e.getStatusCode()).build();
+		} catch (NoSuchIdException e) {
+			return Response.status(Status.NOT_FOUND).build();
+		}
+	}
+	
+	@DELETE
+	@Path("{id}")
+	public Response deleteEvent(@PathParam("id") int id) {
+		try {
+			EventCRUDService.delete(id);;
+			return Response.ok().build();
+		} catch (NoSuchIdException e) {
+			return Response.status(Status.NOT_FOUND).build();
+		}
 	}
 }

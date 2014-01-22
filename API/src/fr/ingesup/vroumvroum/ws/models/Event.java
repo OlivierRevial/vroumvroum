@@ -18,7 +18,7 @@ import fr.ingesup.vroumvroum.ws.utils.SQL;
 
 @Entity
 @Table(name=SQL.Event.TABLE.NAME)
-public class Event {
+public class Event implements JSONAble {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name=SQL.Event.COLUMN._ID)
@@ -87,6 +87,7 @@ public class Event {
 		this.endTime = endTime;
 	}
 	
+	@Override
 	public JSONObject toJSON() {
 		JSONObject eventJSON = new JSONObject();
 
@@ -100,5 +101,10 @@ public class Event {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	@Override
+	public String toString() {
+		return id + " // " + name +  " // " + description;
 	}
 }
