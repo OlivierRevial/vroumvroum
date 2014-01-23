@@ -49,6 +49,9 @@ public class User {
 	@Temporal(TemporalType.DATE)
 	private Date birthdate;
 
+	@Column(name="user_token")
+	private String userToken;
+	
 	/**
 	 * User's password, encoded in MD5
 	 */
@@ -175,5 +178,13 @@ public class User {
 
 	public void setCreatedEvents(Set<Event> createdEvents) {
 		this.createdEvents = createdEvents;
+	}
+
+	public String getUserToken() {
+		return userToken;
+	}
+
+	public void setUserToken(String userToken) {
+		this.userToken = userToken;
 	}
 }

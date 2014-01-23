@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.ws.rs.core.Response.Status;
 
+import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -26,7 +27,6 @@ public class JSONUtils {
 		{
 			return null;
 		}
-		
 	}
 	
 	public static JSONArray getJSONArray(JSONObject uniqueJSONObject)
@@ -68,7 +68,20 @@ public class JSONUtils {
 			throw new JsonException("Internal servor error", Status.SERVICE_UNAVAILABLE);
 		}
 	}
-
+	
+	public static <T> String convertObjectToJSON(T object) throws JsonException {
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			return mapper.writeValueAsString(object);
+		} catch (JsonGenerationException e) {
+			throw new JsonException("Json could not be generated from object", Status.BAD_REQUEST);
+		} catch (JsonMappingException e) {
+			throw new JsonException("Object could not be mapped", Status.BAD_REQUEST);
+		} catch (IOException e) {
+			throw new JsonException("I/O exception", Status.SERVICE_UNAVAILABLE);
+		}
+	}
+	
 //	Event testEvent = EventCRUDService.findAll().get(0);
 //	ObjectMapper objectMapper = new ObjectMapper();
 //	Event result = null;
