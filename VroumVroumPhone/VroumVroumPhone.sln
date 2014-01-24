@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VroumVroumPhone", "VroumVroumPhone\VroumVroumPhone.csproj", "{D0DC2D2C-FBE0-4E97-BD7E-35030AC5C2A5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mesClasses", "mesClasses\mesClasses.csproj", "{D03F7F95-B665-4115-984B-4312B743CDDC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,14 @@ Global
 		{D0DC2D2C-FBE0-4E97-BD7E-35030AC5C2A5}.Release|x86.ActiveCfg = Release|x86
 		{D0DC2D2C-FBE0-4E97-BD7E-35030AC5C2A5}.Release|x86.Build.0 = Release|x86
 		{D0DC2D2C-FBE0-4E97-BD7E-35030AC5C2A5}.Release|x86.Deploy.0 = Release|x86
+		{D03F7F95-B665-4115-984B-4312B743CDDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D03F7F95-B665-4115-984B-4312B743CDDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D03F7F95-B665-4115-984B-4312B743CDDC}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{D03F7F95-B665-4115-984B-4312B743CDDC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D03F7F95-B665-4115-984B-4312B743CDDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D03F7F95-B665-4115-984B-4312B743CDDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D03F7F95-B665-4115-984B-4312B743CDDC}.Release|ARM.ActiveCfg = Release|Any CPU
+		{D03F7F95-B665-4115-984B-4312B743CDDC}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
