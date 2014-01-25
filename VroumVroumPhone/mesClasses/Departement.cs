@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace mesClasses
 {
-    class Departement
+    public class Departement
     {
         public string name{get;set;}
         public int id { get; set; }

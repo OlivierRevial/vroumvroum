@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace mesClasses
 {
-    class Coordinate
+    public class Coordinate
     {
         public int id { get; set; }
         public decimal longitude { get; set; }
