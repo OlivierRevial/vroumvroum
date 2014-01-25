@@ -20,9 +20,13 @@ import org.codehaus.jettison.json.JSONArray;
 
 import fr.ingesup.vroumvroum.ws.exceptions.JsonException;
 import fr.ingesup.vroumvroum.ws.exceptions.NoSuchIdException;
+import fr.ingesup.vroumvroum.ws.exceptions.UserException;
 import fr.ingesup.vroumvroum.ws.hibernate.crud.EventCRUDService;
+import fr.ingesup.vroumvroum.ws.hibernate.crud.UserCRUDService;
 import fr.ingesup.vroumvroum.ws.models.events.Event;
+import fr.ingesup.vroumvroum.ws.models.user.User;
 import fr.ingesup.vroumvroum.ws.utils.JSONUtils;
+import fr.ingesup.vroumvroum.ws.utils.Log;
 import fr.ingesup.vroumvroum.ws.utils.RightsUtils;
 import fr.ingesup.vroumvroum.ws.utils.URLUtils;
 
@@ -30,20 +34,26 @@ import fr.ingesup.vroumvroum.ws.utils.URLUtils;
 public class EventService {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public JSONArray getEvents() {
-		return JSONUtils.convertListToJSON(EventCRUDService.findAll());
+	public JSONArray getEvents(@QueryParam("resultsPerPage") int resultsPerPage, @QueryParam("page") int page) {
+		return JSONUtils.convertListToJSON(EventCRUDService.findAllWithPagination(resultsPerPage, page));
 	}
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response createEvent(String eventStr) throws URISyntaxException {
+	public Response createEvent(String eventStr, @QueryParam("userToken") String userToken) throws URISyntaxException {
 		try {
+			User owner = UserCRUDService.findByToken(userToken);
 			Event event = JSONUtils.convertJSONToObject(eventStr, Event.class);
+			event.setOwner(owner);
 			int insertedId = EventCRUDService.save(event);
 			return Response.created(new URI(String.valueOf(insertedId))).build();
 		} catch (JsonException e) {
+			Log.error(e);
 			return Response.status(e.getStatusCode()).build();
+		} catch (UserException e) {
+			Log.error(e);
+			return Response.serverError().build();
 		}
 	}
 	
@@ -84,10 +94,17 @@ public class EventService {
 	
 	@DELETE
 	@Path("{id}")
-	public Response deleteEvent(@PathParam("id") int id) {
+	public Response deleteEvent(@PathParam("id") int id, @QueryParam("userToken") String userToken) {
 		try {
-			EventCRUDService.delete(id);;
-			return Response.ok().build();
+			if(RightsUtils.hasEventRight(String.valueOf(id), userToken)) {
+				System.out.println("User has right");
+				EventCRUDService.delete(id);;
+				return Response.ok().build();
+			}
+			else {
+				System.out.println("User has not right");
+				return Response.status(Status.FORBIDDEN).build();
+			}
 		} catch (NoSuchIdException e) {
 			return Response.status(Status.NOT_FOUND).build();
 		}

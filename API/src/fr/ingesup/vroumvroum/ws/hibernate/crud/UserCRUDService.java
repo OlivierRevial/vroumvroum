@@ -6,6 +6,8 @@ import org.hibernate.HibernateException;
 import org.hibernate.TypeMismatchException;
 
 import fr.ingesup.vroumvroum.ws.exceptions.NoSuchIdException;
+import fr.ingesup.vroumvroum.ws.exceptions.UserException;
+import fr.ingesup.vroumvroum.ws.exceptions.UserException.Type;
 import fr.ingesup.vroumvroum.ws.models.user.User;
 import fr.ingesup.vroumvroum.ws.utils.Log;
 
@@ -27,8 +29,34 @@ public class UserCRUDService {
 		}
 	}
 	
-	public static int save(User User) {
-		return CRUDUtils.save(User).getId();
+	public static User findByToken(String userToken) throws UserException {
+		String query = "from User user where user.userToken ='" + userToken+ "'";
+		List<User> users = CRUDUtils.getResults(query);
+		if(users == null || users.size() == 0) {
+			throw new UserException(Type.INVALID_USER_TOKEN);
+		}
+		return users.get(0);
+	}
+	
+	public static String getUserToken(String email, String password) throws UserException {
+		String query = "from User user where user.email ='" + email + "' AND user.password = '" + password + "'";
+		List<User> users = CRUDUtils.getResults(query);
+		if(users == null || users.size() == 0) {
+			throw new UserException(Type.INCORRECT_EMAIL_PASSWORD);
+		}
+		return users.get(0).getUserToken();
+	}
+	
+	public static boolean doesUserExists(String email) {
+		String query = "from User user where user.email ='" + email + "'";
+		return CRUDUtils.getResults(query).size() != 0;
+	}
+	
+	public static int save(User user) throws UserException {
+		if(doesUserExists(user.getEmail())) {
+			throw new UserException(Type.USER_ALREADY_EXISTS);
+		}
+		return CRUDUtils.save(user).getId();
 	}
 	
 	public static User update(User User) throws NoSuchIdException {

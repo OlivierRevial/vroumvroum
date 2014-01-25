@@ -17,6 +17,13 @@ public class EventCRUDService {
 		return CRUDUtils.getResults("from " + EVENT_TABLE);
 	}
 	
+	public static List<Event> findAllWithPagination(int resultsPerPage, int page)
+	{
+		// TODO Do better pagination...
+		List<Event> allEvents = CRUDUtils.getResults("from " + EVENT_TABLE);
+		return allEvents.subList(resultsPerPage*(page-1), resultsPerPage * page);
+	}
+	
 	public static Event findById(int id) throws NoSuchIdException
 	{
 		try {

@@ -17,6 +17,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import fr.ingesup.vroumvroum.ws.models.events.Event;
 import fr.ingesup.vroumvroum.ws.models.localization.Address;
 import fr.ingesup.vroumvroum.ws.utils.SQL;
@@ -33,7 +35,7 @@ public class User {
 	@Column(name=SQL.User.COLUMN.FACEBOOK_ID, nullable=false)
 	private String facebookId;
 
-	@Column(name=SQL.User.COLUMN.FIRST_NAME, nullable=false)
+	@Column(name=SQL.User.COLUMN.FIRST_NAME)
 	private String firstName;
 
 	@Column(name=SQL.User.COLUMN.LAST_NAME)
@@ -64,15 +66,19 @@ public class User {
 			referencedColumnName=SQL.Address.COLUMN._ID)
 	private Address address;
 
+	@JsonIgnore
 	@ManyToMany(mappedBy="participants")
 	private Set<Event> participatingEvents;
-	
+
+	@JsonIgnore
 	@ManyToMany(mappedBy="organisers")
 	private Set<Event> organisingEvents;
-	
+
+	@JsonIgnore
 	@ManyToMany(mappedBy="guests")
 	private Set<Event> invitedEvents;
 
+	@JsonIgnore
 	@OneToMany(mappedBy="owner")
 	private Set<Event> createdEvents;
 

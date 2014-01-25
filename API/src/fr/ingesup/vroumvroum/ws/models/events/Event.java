@@ -19,6 +19,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
@@ -69,6 +70,7 @@ public class Event implements JSONAble {
 	
     @ManyToOne( cascade = {CascadeType.PERSIST, CascadeType.MERGE} )
 	@JoinColumn(name="owner_id")
+    @JsonIgnore
 	private User owner;
 	
 	@ManyToMany(
@@ -81,6 +83,7 @@ public class Event implements JSONAble {
 			joinColumns=@JoinColumn(name="event_id"),
 			inverseJoinColumns=@JoinColumn(name="user_id")
 			)
+	@JsonIgnore
 	private Set<User> participants;
 	
 	@ManyToMany(
@@ -93,6 +96,7 @@ public class Event implements JSONAble {
 			joinColumns=@JoinColumn(name="event_id"),
 			inverseJoinColumns=@JoinColumn(name="user_id")
 			)
+	@JsonIgnore
 	private Set<User> organisers;
 	
 	@ManyToMany(
@@ -105,15 +109,19 @@ public class Event implements JSONAble {
 			joinColumns=@JoinColumn(name="event_id"),
 			inverseJoinColumns=@JoinColumn(name="user_id")
 			)
+	@JsonIgnore
 	private Set<User> guests;
 	
 	@OneToMany(mappedBy="event")
+	@JsonIgnore
 	private Set<EventRide> rides;
 	
 	@OneToMany(mappedBy="event")
+	@JsonIgnore
 	private Set<Comment> comments;
 	
 	@OneToMany(mappedBy="event")
+	@JsonIgnore
 	private Set<Invitation> invitations;
 	
 	public int getId() {

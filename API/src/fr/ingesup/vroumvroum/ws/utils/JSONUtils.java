@@ -29,6 +29,13 @@ public class JSONUtils {
 		}
 	}
 	
+	public static JSONObject getJSONObjectFromKeyValue(String key, String value) throws JSONException
+	{
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put(key, value);
+		return jsonObject;
+	}
+	
 	public static JSONArray getJSONArray(JSONObject uniqueJSONObject)
 	{
 		JSONArray jsonArray = new JSONArray();
@@ -81,27 +88,4 @@ public class JSONUtils {
 			throw new JsonException("I/O exception", Status.SERVICE_UNAVAILABLE);
 		}
 	}
-	
-//	Event testEvent = EventCRUDService.findAll().get(0);
-//	ObjectMapper objectMapper = new ObjectMapper();
-//	Event result = null;
-//	String testStr = "{\"id\":\"12\",\"name\":\"Nom de test\", \"description\":\"Description de test\"}";
-//	String resultStr = "";
-//	try {
-//		result = objectMapper.readValue(testStr, Event.class);
-//		resultStr = objectMapper.writeValueAsString(testEvent);
-//		System.out.println(resultStr);
-//	} catch (JsonParseException e) {
-//		// TODO Auto-generated catch block
-//		e.printStackTrace();
-//	} catch (JsonMappingException e) {
-//		// TODO Auto-generated catch block
-//		e.printStackTrace();
-//	} catch (IOException e) {
-//		// TODO Auto-generated catch block
-//		e.printStackTrace();
-//	}
-//	// TODO Implement
-//	System.out.println(result.toString());
-//	return new JSONObject();
 }
