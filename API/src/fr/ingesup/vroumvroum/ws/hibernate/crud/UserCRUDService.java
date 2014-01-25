@@ -42,4 +42,9 @@ public class UserCRUDService {
 	public static void delete(int UserId) throws NoSuchIdException {
 		CRUDUtils.delete("User", UserId);
 	}
+	
+	public static boolean hasEventRight(String eventId, String userToken) {
+		String query = "from Event as event join event.owner as user where user.userToken ='" + userToken + "' AND event.id = " + eventId;
+		return CRUDUtils.getResults(query).size() != 0;
+	}
 }

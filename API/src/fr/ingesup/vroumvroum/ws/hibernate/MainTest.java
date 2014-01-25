@@ -32,14 +32,6 @@ public class MainTest {
 
 		Transaction tx = s.beginTransaction();
 
-		// Création des objets à sauvegarder
-		for(int i=0; i<10; i++) {
-			Event event = new Event();
-			event.setName("Event " + i);
-			event.setDescription("La description de l'event n°" + i);
-			s.saveOrUpdate(event);
-		}
-		
 		User testUser = new User();
 		testUser.setFirstName("Olivier");
 		testUser.setLastName("Revial");
@@ -47,6 +39,20 @@ public class MainTest {
 		testUser.setPassword("************");
 		testUser.setPhoneNumber("0102030405");
 		s.saveOrUpdate(testUser);
+
+		// Création des objets à sauvegarder
+		for(int i=0; i<10; i++) {
+			Event event = new Event();
+			event.setName("Event " + i);
+			event.setDescription("La description de l'event n°" + i);
+
+			if(i%3 == 0) {
+				event.setOwner(testUser);
+			}
+			
+			s.saveOrUpdate(event);
+		}
+		
 		
 		// Fermeture de la transaction
 		tx.commit();
