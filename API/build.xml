@@ -13,7 +13,7 @@
         </war>
     </target>
     <target name="copy">
-        <copy todir="{basedir}\..\..\apache-tomcat-7.0.50\webapps" overwrite="true">
+        <copy todir="/bin/apache-tomcat-7.0.50/webapps" overwrite="true">
             <fileset dir=".">
                 <include name="*.war"/>
             </fileset>
@@ -21,6 +21,6 @@
     </target>
     <target name="deploy">
         <antcall target="create"/>
-        <!--<antcall target="copy"/>-->
+        <antcall target="copy"/>
     </target>
 </project>
