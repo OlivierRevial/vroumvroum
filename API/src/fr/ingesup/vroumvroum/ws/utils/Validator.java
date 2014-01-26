@@ -1,13 +1,23 @@
 package fr.ingesup.vroumvroum.ws.utils;
 
+import java.util.List;
+
 public class Validator {
-	public final static boolean isNull(Object object)
+	public static boolean isNull(Object object)
 	{
 		return object == null;
 	}
 
-	public final static boolean isNotNull(Object object)
+	public static boolean isNotNull(Object object)
 	{
 		return object != null;
+	}
+	
+	public static <T> boolean isNotNullOrEmpty(List<T> list) {
+		return list != null && list.size() != 0;
+	}
+	
+	public static <T> boolean isNullOrEmpty(List<T> list) {
+		return list == null || list.size() == 0;
 	}
 }
