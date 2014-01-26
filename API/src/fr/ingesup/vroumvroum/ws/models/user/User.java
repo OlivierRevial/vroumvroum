@@ -5,14 +5,11 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -20,7 +17,6 @@ import javax.persistence.TemporalType;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 import fr.ingesup.vroumvroum.ws.models.events.Event;
-import fr.ingesup.vroumvroum.ws.models.localization.Address;
 import fr.ingesup.vroumvroum.ws.utils.SQL;
 
 
@@ -59,12 +55,6 @@ public class User {
 	 */
 	@Column(name=SQL.User.COLUMN.PASSWORD)
 	private String password;
-
-	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn (
-			name=SQL.User.COLUMN.ADDRESS,
-			referencedColumnName=SQL.Address.COLUMN._ID)
-	private Address address;
 
 	@JsonIgnore
 	@ManyToMany(mappedBy="participants")
@@ -144,14 +134,6 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
 	}
 
 	public Set<Event> getParticipatingEvents() {

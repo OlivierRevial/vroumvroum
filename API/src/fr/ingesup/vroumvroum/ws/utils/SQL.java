@@ -40,6 +40,7 @@ public interface SQL {
 		}
 		
 		public interface COLUMN {
+			public static final String _ID = "id";
 			public static final String INSEE_CODE = "insee_code";
 			public static final String POSTAL_CODE = "postal_code";
 			public static final String NAME = "name";
@@ -55,6 +56,7 @@ public interface SQL {
 		
 		public interface COLUMN {
 			public static final String _ID = "id";
+			public static final String CODE = "code";
 			public static final String NAME = "name";
 		}
 	}
@@ -81,11 +83,10 @@ public interface SQL {
 		
 		public interface COLUMN {
 			public static final String _ID = "id";
-			public static final String ADDRESS = "line_principal";
-			public static final String LINE_COMPLEMENT = "line_complement";
+			public static final String ADDRESS = "address";
 			public static final String POSTAL_CODE = "postal_code";
 			public static final String CITY = "city";
-			public static final String COORDINATES = "location_id";
+			public static final String COORDINATES = "coordinates_id";
 		}
 	}
 	

@@ -16,10 +16,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import org.codehaus.jettison.json.JSONArray;
-
 import fr.ingesup.vroumvroum.ws.exceptions.JsonException;
 import fr.ingesup.vroumvroum.ws.exceptions.NoSuchIdException;
+import fr.ingesup.vroumvroum.ws.exceptions.PaginationException;
 import fr.ingesup.vroumvroum.ws.exceptions.UserException;
 import fr.ingesup.vroumvroum.ws.hibernate.crud.EventCRUDService;
 import fr.ingesup.vroumvroum.ws.hibernate.crud.UserCRUDService;
@@ -34,8 +33,13 @@ import fr.ingesup.vroumvroum.ws.utils.URLUtils;
 public class EventService {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public JSONArray getEvents(@QueryParam("resultsPerPage") int resultsPerPage, @QueryParam("page") int page) {
-		return JSONUtils.convertListToJSON(EventCRUDService.findAllWithPagination(resultsPerPage, page));
+	public Response getEvents(@QueryParam("resultsPerPage") int resultsPerPage, @QueryParam("page") int page) {
+		try {
+			return Response.ok(JSONUtils.convertListToJSON(EventCRUDService.findAllWithPagination(resultsPerPage, page))).build();
+		} catch (PaginationException e) {
+			Log.error(e);
+			return Response.status(Status.BAD_REQUEST).build();
+		}
 	}
 	
 	@POST

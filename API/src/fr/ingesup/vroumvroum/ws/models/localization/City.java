@@ -18,6 +18,9 @@ import fr.ingesup.vroumvroum.ws.utils.SQL;
 @Table(name=SQL.City.TABLE.NAME)
 public class City {
 	@Id
+	@Column(name=SQL.City.COLUMN._ID)
+	private int id;
+	
 	@Column(name=SQL.City.COLUMN.INSEE_CODE)
 	private int inseeCode;
 

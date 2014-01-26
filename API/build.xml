@@ -21,6 +21,6 @@
     </target>
     <target name="deploy">
         <antcall target="create"/>
-        <antcall target="copy"/>
+        <!--<antcall target="copy"/>-->
     </target>
 </project>
