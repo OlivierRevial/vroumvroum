@@ -1,4 +1,5 @@
 *.class
+API/src/hibernate.cfg.xml
 
 # Package Files #
 *.jar
