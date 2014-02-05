@@ -17,10 +17,7 @@ C:\Users\Sam\Source\Repos\vroumvroum\VroumVroumPhone\VroumVroumPhone\obj\Debug\V
 C:\Users\Sam\Source\Repos\vroumvroum\VroumVroumPhone\VroumVroumPhone\obj\Debug\VroumVroumPhone.dll
 C:\Users\Sam\Source\Repos\vroumvroum\VroumVroumPhone\VroumVroumPhone\obj\Debug\VroumVroumPhone.pdb
 C:\Users\Sam\Source\Repos\vroumvroum\VroumVroumPhone\VroumVroumPhone\obj\Debug\XapCacheFile.xml
-C:\Users\Sam\Source\Repos\vroumvroum\VroumVroumPhone\VroumVroumPhone\obj\Debug\VroumVroumPhone.csprojResolveAssemblyReference.cache
 C:\Users\Sam\Source\Repos\vroumvroum\VroumVroumPhone\VroumVroumPhone\obj\Debug\AddEventView.g.cs
 C:\Users\Sam\Source\Repos\vroumvroum\VroumVroumPhone\VroumVroumPhone\obj\Debug\EditEventView.g.cs
 C:\Users\Sam\Source\Repos\vroumvroum\VroumVroumPhone\VroumVroumPhone\obj\Debug\EventView.g.cs
 C:\Users\Sam\Source\Repos\vroumvroum\VroumVroumPhone\VroumVroumPhone\obj\Debug\EventsView.g.cs
-C:\Users\Sam\Source\Repos\vroumvroum\VroumVroumPhone\VroumVroumPhone\Bin\Debug\mesClasses.dll
-C:\Users\Sam\Source\Repos\vroumvroum\VroumVroumPhone\VroumVroumPhone\Bin\Debug\mesClasses.pdb

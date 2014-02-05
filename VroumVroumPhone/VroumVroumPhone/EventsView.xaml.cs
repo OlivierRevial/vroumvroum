@@ -7,6 +7,8 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using System.Collections.ObjectModel;
+using VroumVroumPhone.ViewModels;
 
 namespace VroumVroumPhone
 {
@@ -15,8 +17,7 @@ namespace VroumVroumPhone
         public EventsView()
         {
             InitializeComponent();
-            Model.BullshitRepository repo = new Model.BullshitRepository();
-            eventsList.ItemsSource = repo.getAllEvents();
+            this.DataContext = new EventsViewModel();
         }
         
     }
