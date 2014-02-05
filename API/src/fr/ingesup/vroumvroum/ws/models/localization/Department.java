@@ -25,6 +25,9 @@ public class Department {
 	@Column(name=SQL.Department.COLUMN._ID)
 	private short id;
 
+	@Column(name=SQL.Department.COLUMN.CODE)
+	private String code;
+
 	@Column(name=SQL.Department.COLUMN.NAME)
 	private String name;
 	

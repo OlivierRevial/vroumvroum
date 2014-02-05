@@ -32,6 +32,8 @@ public class UserService {
 	public Response getUser(@PathParam("id") int id) {
 		try {
 			User user = UserCRUDService.findById(id);
+			// Hide password from user
+			user.setPassword("********");
 			return Response.ok(JSONUtils.convertObjectToJSON(user)).build();
 		} catch (NoSuchIdException e) {
 			Log.error(e);

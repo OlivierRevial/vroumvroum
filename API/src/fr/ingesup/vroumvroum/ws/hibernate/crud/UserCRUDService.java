@@ -10,6 +10,7 @@ import fr.ingesup.vroumvroum.ws.exceptions.UserException;
 import fr.ingesup.vroumvroum.ws.exceptions.UserException.Type;
 import fr.ingesup.vroumvroum.ws.models.user.User;
 import fr.ingesup.vroumvroum.ws.utils.Log;
+import fr.ingesup.vroumvroum.ws.utils.Validator;
 
 public class UserCRUDService {
 	private static final String USER_TABLE = "User";
@@ -32,7 +33,7 @@ public class UserCRUDService {
 	public static User findByToken(String userToken) throws UserException {
 		String query = "from User user where user.userToken ='" + userToken+ "'";
 		List<User> users = CRUDUtils.getResults(query);
-		if(users == null || users.size() == 0) {
+		if(Validator.isNullOrEmpty(users)) {
 			throw new UserException(Type.INVALID_USER_TOKEN);
 		}
 		return users.get(0);
@@ -41,7 +42,7 @@ public class UserCRUDService {
 	public static String getUserToken(String email, String password) throws UserException {
 		String query = "from User user where user.email ='" + email + "' AND user.password = '" + password + "'";
 		List<User> users = CRUDUtils.getResults(query);
-		if(users == null || users.size() == 0) {
+		if(Validator.isNullOrEmpty(users)) {
 			throw new UserException(Type.INCORRECT_EMAIL_PASSWORD);
 		}
 		return users.get(0).getUserToken();
@@ -49,7 +50,7 @@ public class UserCRUDService {
 	
 	public static boolean doesUserExists(String email) {
 		String query = "from User user where user.email ='" + email + "'";
-		return CRUDUtils.getResults(query).size() != 0;
+		return Validator.isNotNullOrEmpty(CRUDUtils.getResults(query));
 	}
 	
 	public static int save(User user) throws UserException {
@@ -73,6 +74,6 @@ public class UserCRUDService {
 	
 	public static boolean hasEventRight(String eventId, String userToken) {
 		String query = "from Event as event join event.owner as user where user.userToken ='" + userToken + "' AND event.id = " + eventId;
-		return CRUDUtils.getResults(query).size() != 0;
+		return Validator.isNotNullOrEmpty(CRUDUtils.getResults(query));
 	}
 }
