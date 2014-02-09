@@ -18,6 +18,7 @@ namespace VroumVroumPhone.Ecrans
         public EventsView()
         {
             InitializeComponent();
+            buildEventsListedBar();
             this.load_items();
             eventsList.ItemsSource = lesEvents;
         }
@@ -37,6 +38,38 @@ namespace VroumVroumPhone.Ecrans
             //Event theEvent = await eventsServices.getEvent(1);
             lesEvents = await eventsServices.getEvents();
             eventsList.ItemsSource = lesEvents;
+            IsLoading.Visibility = Visibility.Collapsed;
+        }
+        private void buildEventsListedBar()
+        {
+            //Affichage de la barre
+            ApplicationBar = new ApplicationBar();
+            ApplicationBar.Opacity = 1.0;
+            ApplicationBar.Mode = ApplicationBarMode.Minimized;
+            ApplicationBar.IsVisible = true;
+            ApplicationBar.IsMenuEnabled = true;
+
+            //Bouton Add
+            ApplicationBarIconButton btnAdd = new ApplicationBarIconButton();
+            btnAdd.IconUri = new Uri("/Assets/Icons/Dark/add.png", UriKind.Relative);
+            btnAdd.Text = "Nouveau";
+            btnAdd.Click += new EventHandler(btnAdd_Click);
+            ApplicationBar.Buttons.Add(btnAdd);
+
+            //Bouton Search
+            ApplicationBarIconButton btnSearch = new ApplicationBarIconButton();
+            btnSearch.IconUri = new Uri("/Assets/Icons/Dark/feature.search.png", UriKind.Relative);
+            btnSearch.Text = "Rechercher";
+            btnSearch.Click += new EventHandler(btnSearch_Click);
+            ApplicationBar.Buttons.Add(btnSearch);
+        }
+        private void btnAdd_Click(Object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/Ecrans/AddEventView.xaml", UriKind.Relative));
+        }
+        private void btnSearch_Click(Object sender, EventArgs e)
+        {
+            // pop up ?
         }
     }
 }
