@@ -22,7 +22,8 @@
 
         <!--TitlePanel contient le nom de l'application et le titre de la page-->
         <StackPanel Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock Text="MON APPLICATION" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock Text="MON APPLICATION" Style="{StaticResource Pho
+                extNormalStyle}"/>
             <TextBlock Text="nom de la page" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 

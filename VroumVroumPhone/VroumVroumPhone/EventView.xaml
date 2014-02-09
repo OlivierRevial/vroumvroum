@@ -28,7 +28,11 @@
 
         <!--ContentPanel - placez tout contenu supplémentaire ici-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-
+            <StackPanel Margin="0,0,0,20" >
+                <TextBlock Name="id" FontSize="24" Foreground="LightBlue" />
+                <TextBlock Name="name" Foreground="White" />
+                <TextBlock Name="description" Foreground="Gray" />
+            </StackPanel>
         </Grid>
     </Grid>
 
