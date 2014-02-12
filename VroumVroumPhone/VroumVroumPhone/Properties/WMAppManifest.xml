@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2012/deployment" AppPlatformVersion="8.0">
   <DefaultLanguage xmlns="" code="fr-FR" />
-  <App xmlns="" ProductID="{2fb9d097-7826-4a2c-869e-dd81916eab8c}" Title="VroumVroumPhone" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="VroumVroumPhone author" Description="Sample description" Publisher="VroumVroumPhone" PublisherID="{47e56521-4bdf-4afc-894c-f6256e87a498}">
-    <IconPath IsRelative="true" IsResource="false">Assets\ApplicationIcon.png</IconPath>
+  <App xmlns="" ProductID="{2fb9d097-7826-4a2c-869e-dd81916eab8c}" Title="VroumVroum" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="VroumVroumPhone author" Description="Applicatin de gestion d'évènements moto ! :-)" Publisher="VroumVroumPhone" PublisherID="{47e56521-4bdf-4afc-894c-f6256e87a498}">
+    <IconPath IsRelative="true" IsResource="false">VroumVroum-min.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />
       <Capability Name="ID_CAP_MEDIALIB_AUDIO" />
@@ -17,20 +17,24 @@
     <Tokens>
       <PrimaryToken TokenID="VroumVroumPhoneToken" TaskName="_default">
         <TemplateFlip>
-          <SmallImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileSmall.png</SmallImageURI>
+          <SmallImageURI IsRelative="true" IsResource="false">VroumVroum-min.png</SmallImageURI>
           <Count>0</Count>
-          <BackgroundImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileMedium.png</BackgroundImageURI>
-          <Title>VroumVroumPhone</Title>
+          <BackgroundImageURI IsRelative="true" IsResource="false">VroumVroum-min.png</BackgroundImageURI>
+          <Title>
+          </Title>
           <BackContent>
           </BackContent>
-          <BackBackgroundImageURI>
+          <BackBackgroundImageURI IsRelative="true" IsResource="false">
           </BackBackgroundImageURI>
           <BackTitle>
           </BackTitle>
-          <DeviceLockImageURI>
+          <LargeBackgroundImageURI IsRelative="true" IsResource="false">VroumVroum.png</LargeBackgroundImageURI>
+          <LargeBackContent />
+          <LargeBackBackgroundImageURI IsRelative="true" IsResource="false">
+          </LargeBackBackgroundImageURI>
+          <DeviceLockImageURI IsRelative="true" IsResource="false">
           </DeviceLockImageURI>
-          <HasLarge>
-          </HasLarge>
+          <HasLarge>True</HasLarge>
         </TemplateFlip>
       </PrimaryToken>
     </Tokens>

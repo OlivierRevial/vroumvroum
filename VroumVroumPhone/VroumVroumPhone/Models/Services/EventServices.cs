@@ -11,10 +11,10 @@ namespace VroumVroumPhone.Models.Services
 {
     public class EventServices
     {
-        private string url = "http://82.236.45.188/AgendaWS/";
+        private string url = "http://82.236.45.188/VroumVroum/";
         private HttpClient client;
         private Event theEvent;
-        private List<Event> listEvents;
+        private List<Event> eventsList;
 
         public EventServices()
         {
@@ -35,26 +35,29 @@ namespace VroumVroumPhone.Models.Services
             }
             return theEvent;
         }
-        public async Task<List<Event>> getEvents()
+        public async Task<List<Event>> getEvents(int page = 1, int nbResultsPerPage = 40)
         {
-            HttpResponseMessage response = await client.GetAsync("events");
+            HttpResponseMessage response = await client.GetAsync("events?page=" + page + "&resultsPerPage=" + nbResultsPerPage);
             if (response.IsSuccessStatusCode)
             {
-                listEvents = await response.Content.ReadAsAsync<List<Event>>();
+                eventsList = await response.Content.ReadAsAsync<List<Event>>();
             }
-            return listEvents;
+            return eventsList;
         }
-        public async Task addEvent(Event newEvent)
+        public async Task<int> addEvent(Event newEvent)
         {
-            HttpResponseMessage response = await client.PostAsJsonAsync("events", newEvent);
+            HttpResponseMessage response = await client.PostAsJsonAsync("events?userToken=vr94H09MQB2MzK55RG", newEvent);
+            return (int)response.StatusCode;
         }
-        public async Task updateEvent(Event theEvent)
+        public async Task<int> updateEvent(Event theEvent)
         {
-            HttpResponseMessage response = await client.PutAsJsonAsync("events/", theEvent);
+            HttpResponseMessage response = await client.PutAsJsonAsync("events?userToken=vr94H09MQB2MzK55RG", theEvent);
+            return (int)response.StatusCode;
         }
-        public async Task deleteEvent(Event theEvent)
+        public async Task<int> deleteEvent(int id)
         {
-            HttpResponseMessage response = await client.DeleteAsync("events/" + theEvent.id);
+            HttpResponseMessage response = await client.DeleteAsync("events?userToken=vr94H09MQB2MzK55RG" + id);
+            return (int)response.StatusCode;
         }
 
     }

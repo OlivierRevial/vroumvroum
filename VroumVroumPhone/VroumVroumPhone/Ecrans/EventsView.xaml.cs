@@ -9,35 +9,57 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using VroumVroumPhone.Classes;
 using VroumVroumPhone.Models.Services;
+using System.Collections.ObjectModel;
 
 namespace VroumVroumPhone.Ecrans
 {
     public partial class EventsView : PhoneApplicationPage
     {
-        private List<Event> lesEvents;
+        public static ObservableCollection<Event> eventsCollection { get; set; }
+
+        private int page = 1;
         public EventsView()
         {
+            eventsCollection = new ObservableCollection<Event>();
             InitializeComponent();
             buildEventsListedBar();
             this.load_items();
-            eventsList.ItemsSource = lesEvents;
+            moreEvents.Visibility = Visibility.Collapsed;
         }
         private void StackPanel_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             int id = (int)(sender as StackPanel).Tag;
-            try
-            {
-                NavigationService.Navigate(new Uri(String.Format("/Ecrans/EventView.xaml?parameter={0}", id), UriKind.Relative));
-            }
-            catch (Exception)
-            { }
+            NavigationService.Navigate(new Uri(String.Format("/Ecrans/EventView.xaml?parameter={0}", id), UriKind.Relative));
         }
         private async void load_items()
         {
             EventServices eventsServices = new EventServices();
-            //Event theEvent = await eventsServices.getEvent(1);
-            lesEvents = await eventsServices.getEvents();
-            eventsList.ItemsSource = lesEvents;
+
+            List<Event> tmpResults = await eventsServices.getEvents(page, 20);
+
+            if (eventsCollection.Count > 0)
+            {
+                if (null != tmpResults)
+                {
+                    foreach (Event grp in tmpResults)
+                    {
+                        eventsCollection.Add(grp);
+                    }
+                    moreEvents.Visibility = Visibility.Visible;
+                }
+            }
+            else
+            {
+               if(null != tmpResults){
+                   foreach (Event grp in tmpResults)
+                   {
+                       eventsCollection.Add(grp);
+                   }
+               }
+                eventsList.ItemsSource = eventsCollection;
+                moreEvents.Visibility = Visibility.Visible;
+            }
+            page = page + 1;
             IsLoading.Visibility = Visibility.Collapsed;
         }
         private void buildEventsListedBar()
@@ -71,5 +93,36 @@ namespace VroumVroumPhone.Ecrans
         {
             // pop up ?
         }
+
+        private void moreEvents_Click(object sender, RoutedEventArgs e)
+        {
+            moreEvents.Visibility = Visibility.Collapsed;
+            this.load_items();
+        }
+
+        private void StackPanel_Hold(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Voulez-vous supprimer cette sortie ?", "Suppression", MessageBoxButton.OKCancel);
+
+            if (result == MessageBoxResult.OK)
+            {
+                int id = (int)(sender as StackPanel).Tag;
+                deleteItem(id);
+            }
+        }
+        private async void deleteItem(int id)
+        {
+            EventServices eventsServices = new EventServices();
+            int codeHttp = await eventsServices.deleteEvent(id);
+            if (codeHttp == 200 || codeHttp == 201)
+            {
+                MessageBox.Show("Sortie supprimée avec succès !");
+            }
+            else
+            {
+                MessageBox.Show("Impossible de supprimer la sortie !");
+            }
+        }
+        
     }
 }
