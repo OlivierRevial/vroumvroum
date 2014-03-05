@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,7 +33,6 @@ namespace VroumVroumPhone.Models.Services
             HttpResponseMessage response = await client.GetAsync("events/" + id);
             if (response.IsSuccessStatusCode)
             {
-                var msg = await response.Content.ReadAsStringAsync();
                 theEvent = await response.Content.ReadAsAsync<Event>();
             }
             return theEvent;

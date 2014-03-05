@@ -10,14 +10,19 @@ namespace VroumVroumPhone.Classes
     public class Coordinate
     {
         public int id { get; set; }
-        public decimal longitude { get; set; }
-        public decimal latitude { get; set; }
-        public Coordinate(decimal _longitude, decimal _latitude)
+        public double longitude { get; set; }
+        public double latitude { get; set; }
+
+        public Coordinate() {
+            longitude = 0;
+            latitude = 0;
+        }
+        public Coordinate(double _longitude, double _latitude)
         {
             this.longitude = _longitude;
             this.latitude = _latitude;
         }
-        public Coordinate(int _id, decimal _longitude, decimal _latitude)
+        public Coordinate(int _id, double _longitude, double _latitude)
         {
             this.id = _id;
             this.longitude = _longitude;

@@ -7,8 +7,8 @@ namespace VroumVroumPhone.Classes
 {
     public class Ride
     {
-        int id { get; set; }
-        List<RideAddress> ridesAddresses { get; set; }
+        public int id { get; set; }
+        public List<RideAddress> ridesAddresses { get; set; }
 
     }
 }

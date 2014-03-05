@@ -7,9 +7,9 @@ namespace VroumVroumPhone.Classes
 {
     public class EventRide
     {
-        int id { get; set; }
+        public int id { get; set; }
 
         public Ride ride { get; set; }
-        int nbVotes { get; set; }
+        public int nbVotes { get; set; }
     }
 }

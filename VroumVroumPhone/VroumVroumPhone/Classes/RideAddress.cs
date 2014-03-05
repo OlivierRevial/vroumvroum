@@ -8,9 +8,9 @@ namespace VroumVroumPhone.Classes
 {
     public class RideAddress
     {
-        int id { get; set; }
-        Address address { get; set; }
+        public int id { get; set; }
+        public Address address { get; set; }
 
-        int orderInRide { get; set; }
+        public int orderInRide { get; set; }
     }
 }

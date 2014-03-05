@@ -23,6 +23,7 @@ namespace VroumVroumPhone.Ecrans
     {
         Map MyMap { get; set; }
         RouteQuery RideQuery { get; set; }
+        Color RouteColor { get; set; }
 
         public EventView()
         {
@@ -45,10 +46,12 @@ namespace VroumVroumPhone.Ecrans
             //pageTitle.Text = getEvent.name;
             theEvent.DataContext = getEvent;
 
-            IEnumerable<GeoCoordinate> ride = getRide();
             centerMap();
-            drawRide(ride);
-            drawRidePinPoints(ride);
+            for (int i = 0; i < getEvent.rides.Count; i++) {
+                IEnumerable<GeoCoordinate> ride = convertToGeoRide(getEvent.rides.ElementAt(i).ride.ridesAddresses);
+                drawRide(ride, getRideColor(i));
+                drawRidePinPoints(ride);
+            }
         }
 
         private async void centerMap() {
@@ -61,6 +64,17 @@ namespace VroumVroumPhone.Ecrans
 
             // Add point showing current user position
             drawPinPoint(myGeoCoordinate, Colors.Blue);
+        }
+
+        private Color getRideColor(int position) {
+            switch (position) {
+                case 1: return Colors.Brown;
+                case 2: return Colors.Blue;
+                case 3: return Colors.Green;
+                case 4: return Colors.Yellow;
+                case 5: return Colors.Purple;
+                default: return Colors.Red;
+            }
         }
 
         private void drawRidePinPoints(IEnumerable<GeoCoordinate> ride) {
@@ -105,9 +119,18 @@ namespace VroumVroumPhone.Ecrans
             this.map1.Layers.Add(myLocationLayer);
         }
 
-        private void drawRide(IEnumerable<GeoCoordinate> ride) {
+        private IEnumerable<GeoCoordinate> convertToGeoRide(List<RideAddress> addresses) {
+            List<GeoCoordinate> coords = new List<GeoCoordinate>();
+            foreach (RideAddress rideAd in addresses) {
+                coords.Add(new GeoCoordinate(rideAd.address.coordinates.latitude, rideAd.address.coordinates.longitude));
+            }
+            return coords;
+        }
+        
+        private void drawRide(IEnumerable<GeoCoordinate> ride, Color color) {
             RideQuery = new RouteQuery();
 
+            RouteColor = color;
             RideQuery.Waypoints = ride;
             RideQuery.TravelMode = TravelMode.Driving;
             RideQuery.QueryCompleted += RideQuery_QueryCompleted;
@@ -119,6 +142,7 @@ namespace VroumVroumPhone.Ecrans
             {
                 Route MyRoute = e.Result;
                 MapRoute MyMapRoute = new MapRoute(MyRoute);
+                MyMapRoute.Color = RouteColor;
                 this.map1.AddRoute(MyMapRoute);
                 RideQuery.Dispose();
             }
