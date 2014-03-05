@@ -46,11 +46,18 @@ namespace VroumVroumPhone.Ecrans
             //pageTitle.Text = getEvent.name;
             theEvent.DataContext = getEvent;
 
-            centerMap();
-            for (int i = 0; i < getEvent.rides.Count; i++) {
-                IEnumerable<GeoCoordinate> ride = convertToGeoRide(getEvent.rides.ElementAt(i).ride.ridesAddresses);
-                drawRide(ride, getRideColor(i));
-                drawRidePinPoints(ride);
+            //centerMap();
+            this.map1.ZoomLevel = 10;
+            if (getEvent.rides != null && getEvent.rides.Count > 0) { 
+                // Center map on first ride start point
+                Coordinate coords = getEvent.rides.ElementAt(0).ride.ridesAddresses.ElementAt(0).address.coordinates;
+                this.map1.Center = new GeoCoordinate(coords.latitude, coords.longitude);
+                
+                for (int i = 0; i < getEvent.rides.Count; i++) {
+                    IEnumerable<GeoCoordinate> ride = convertToGeoRide(getEvent.rides.ElementAt(i).ride.ridesAddresses);
+                    drawRide(ride, getRideColor(i));
+                    drawRidePinPoints(ride);
+                }
             }
         }
 
@@ -63,7 +70,7 @@ namespace VroumVroumPhone.Ecrans
             this.map1.Center = myGeoCoordinate;
 
             // Add point showing current user position
-            drawPinPoint(myGeoCoordinate, Colors.Blue);
+            drawPinPoint(new PinPoint(myGeoCoordinate, PinPoint.PinType.USER_LOCATION, "test Description"));
         }
 
         private Color getRideColor(int position) {
@@ -80,36 +87,36 @@ namespace VroumVroumPhone.Ecrans
         private void drawRidePinPoints(IEnumerable<GeoCoordinate> ride) {
             for (int i = 0; i < ride.Count(); i++)
             {
-                Color pinColor;
+                PinPoint.PinType type;
                 if (i == 0)
                 {
-                    pinColor = Colors.Green;
+                    type = PinPoint.PinType.START;
                 }
                 else if (i == ride.Count() - 1)
                 {
-                    pinColor = Colors.Red;
+                    type = PinPoint.PinType.FINISH;
                 }
                 else
                 {
-                    pinColor = Colors.Orange;
+                    type = PinPoint.PinType.STEP;
                 }
-                drawPinPoint(ride.ElementAt(i), pinColor);
+                drawPinPoint(new PinPoint(ride.ElementAt(i), type, "test Description"));
             }
         }
 
-        private void drawPinPoint(GeoCoordinate coordinate, Color color) {
+        private void drawPinPoint(PinPoint pinPoint) {
             // Create a small circle to mark the current location.
             Ellipse myCircle = new Ellipse();
-            myCircle.Fill = new SolidColorBrush(color);
-            myCircle.Height = 15;
-            myCircle.Width = 15;
+            myCircle.Fill = new SolidColorBrush(pinPoint.pinColor);
+            myCircle.Height = pinPoint.pinHeight;
+            myCircle.Width = pinPoint.pinWidth;
             myCircle.Opacity = 50;
 
             // Create a MapOverlay to contain the circle.
             MapOverlay myLocationOverlay = new MapOverlay();
             myLocationOverlay.Content = myCircle;
             myLocationOverlay.PositionOrigin = new Point(0.5, 0.5);
-            myLocationOverlay.GeoCoordinate = coordinate;
+            myLocationOverlay.GeoCoordinate = pinPoint.coordinates;
 
             // Create a MapLayer to contain the MapOverlay.
             MapLayer myLocationLayer = new MapLayer();
@@ -118,6 +125,8 @@ namespace VroumVroumPhone.Ecrans
             // Add the MapLayer to the Map.
             this.map1.Layers.Add(myLocationLayer);
         }
+
+        
 
         private IEnumerable<GeoCoordinate> convertToGeoRide(List<RideAddress> addresses) {
             List<GeoCoordinate> coords = new List<GeoCoordinate>();
@@ -182,6 +191,44 @@ namespace VroumVroumPhone.Ecrans
                     geocoordinate.Speed ?? Double.NaN,
                     geocoordinate.Heading ?? Double.NaN
                     );
+            }
+        }
+
+        public class PinPoint
+        {
+            public GeoCoordinate coordinates { get; set; }
+            public Color pinColor {get;set;}
+            public enum PinType { START, STEP, FINISH, USER_LOCATION };
+
+            public PinType pinType {get;set;}
+
+            public string pinDescription {get;set;}
+
+            public int pinWidth { get; set; }
+
+            public int pinHeight { get; set; }
+
+            public PinPoint(GeoCoordinate coord, PinType type, string desc) {
+                this.coordinates = coord;
+                this.pinType = type;
+                this.pinDescription = desc;
+                switch (type) { 
+                    case PinType.FINISH:
+                        this.pinWidth = 17;
+                        this.pinHeight = 17;
+                        this.pinColor = Colors.Red;
+                        break;
+                    case PinType.START:
+                        this.pinWidth = 17;
+                        this.pinHeight = 17;
+                        this.pinColor = Colors.Green;
+                        break;
+                    default:
+                        this.pinWidth = 12;
+                        this.pinHeight = 12;
+                        this.pinColor = Colors.Orange;
+                        break;
+                }
             }
         }
     }
