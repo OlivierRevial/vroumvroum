@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 @Entity
 @Table(name="event_ride")
 public class EventRide {
@@ -22,6 +24,7 @@ public class EventRide {
 	
 	@ManyToOne
 	@JoinColumn(name="event_id")
+	@JsonIgnore
 	private Event event;
 	
 	@ManyToOne

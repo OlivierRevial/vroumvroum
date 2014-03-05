@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import fr.ingesup.vroumvroum.ws.models.localization.Address;
 
 @Entity
@@ -21,6 +23,7 @@ public class RideAddress {
 	
 	@ManyToOne
 	@JoinColumn(name="ride_id")
+	@JsonIgnore
 	private Ride ride;
 
 	@ManyToOne

@@ -23,6 +23,7 @@
                 <StackPanel Grid.Column="0" Tag="{Binding id}" Orientation="Horizontal" Tap="StackPanel_Tap" Hold="StackPanel_Hold">
                     <Image Source="../Assets/Images/noimage.jpg" Width="100" Height="80" VerticalAlignment="Top"/>
                     <StackPanel Tag="{Binding id}" Margin="0,0,0,20" Tap="StackPanel_Tap">
+                        <TextBlock Text="{Binding id}" Foreground="White" />
                         <TextBlock Text="{Binding name}" Foreground="White" />
                         <TextBlock Text="{Binding description}" Foreground="Gray" />
                     </StackPanel>

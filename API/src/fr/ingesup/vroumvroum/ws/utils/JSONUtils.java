@@ -7,11 +7,14 @@ import javax.ws.rs.core.Response.Status;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.annotate.JsonMethod;
+import org.codehaus.jackson.annotate.JsonAutoDetect.Visibility;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
+import org.hibernate.property.PropertyAccessor;
 
 import fr.ingesup.vroumvroum.ws.exceptions.JsonException;
 import fr.ingesup.vroumvroum.ws.models.JSONAble;
@@ -78,6 +81,7 @@ public class JSONUtils {
 	
 	public static <T> String convertObjectToJSON(T object) throws JsonException {
 		ObjectMapper mapper = new ObjectMapper();
+		mapper.setVisibility(JsonMethod.FIELD, Visibility.ANY);
 		try {
 			return mapper.writeValueAsString(object);
 		} catch (JsonGenerationException e) {

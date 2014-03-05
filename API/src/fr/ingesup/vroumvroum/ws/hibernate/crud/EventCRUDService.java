@@ -39,7 +39,8 @@ public class EventCRUDService {
 	public static Event findById(int id) throws NoSuchIdException
 	{
 		try {
-			return CRUDUtils.findById(id, Event.class);
+			Event event = CRUDUtils.findById(id, Event.class);
+			return event;
 		} catch (TypeMismatchException e) {
 			Log.error(e);
 			return null;

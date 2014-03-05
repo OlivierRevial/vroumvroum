@@ -66,9 +66,11 @@ public class EventService {
 	public Response getEvent(@PathParam("id") int id) {
 		try {
 			Event event = EventCRUDService.findById(id);
-			return Response.ok(event.toJSON()).build();
+			return Response.ok(JSONUtils.convertObjectToJSON(event)).build();
 		} catch (NoSuchIdException e) {
 			return Response.status(Status.NOT_FOUND).build();
+		} catch (JsonException e) {
+			return Response.status(Status.SERVICE_UNAVAILABLE).build();
 		}
 	}
 	

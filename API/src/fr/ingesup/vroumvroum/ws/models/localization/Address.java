@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import fr.ingesup.vroumvroum.ws.models.events.Event;
 import fr.ingesup.vroumvroum.ws.models.events.RideAddress;
 import fr.ingesup.vroumvroum.ws.utils.SQL;
@@ -34,20 +36,22 @@ public class Address {
 					CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH },
 					fetch=FetchType.LAZY)
 	@JoinColumn(name="city")
+	@JsonIgnore
 	private City city;
 
 	@ManyToOne(
 			cascade={
 					CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH },
-					fetch=FetchType.LAZY)
+					fetch=FetchType.EAGER)
 	@JoinColumn(name=SQL.Address.COLUMN.COORDINATES)
 	private Coordinates coordinates;
 
 	@OneToMany(mappedBy="address")
+	@JsonIgnore
 	private Set<RideAddress> ridesAddresses;
 	
-	@OneToMany(mappedBy="startAddress")
-	private Set<Event> eventsStartingHere;
+//	@OneToMany(mappedBy="startAddress")
+//	private Set<Event> eventsStartingHere;
 
 	public int getId() {
 		return id;

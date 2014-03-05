@@ -56,9 +56,9 @@ public class Event implements JSONAble {
 	@Column(name=SQL.Event.COLUMN.DATE_END)
 	private Date endTime;
 	
-	@ManyToOne( cascade = {CascadeType.PERSIST, CascadeType.MERGE} )
-	@JoinColumn(name="address_id")
-	private Address startAddress;
+//	@ManyToOne( cascade = {CascadeType.PERSIST, CascadeType.MERGE} )
+//	@JoinColumn(name="address_id")
+//	private Address startAddress;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name=SQL.Event.COLUMN.CREATED_AT)
@@ -112,8 +112,7 @@ public class Event implements JSONAble {
 	@JsonIgnore
 	private Set<User> guests;
 	
-	@OneToMany(mappedBy="event")
-	@JsonIgnore
+	@OneToMany(mappedBy="event", fetch=FetchType.EAGER)
 	private Set<EventRide> rides;
 	
 	@OneToMany(mappedBy="event")
@@ -167,12 +166,12 @@ public class Event implements JSONAble {
 		this.endTime = endTime;
 	}
 	
-	public Address getStartPlace() {
-		return startAddress;
-	}
-	public void setStartPlace(Address startPlace) {
-		this.startAddress = startPlace;
-	}
+//	public Address getStartPlace() {
+//		return startAddress;
+//	}
+//	public void setStartPlace(Address startPlace) {
+//		this.startAddress = startPlace;
+//	}
 	public Date getCreatedAt() {
 		return createdAt;
 	}

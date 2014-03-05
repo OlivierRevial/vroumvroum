@@ -93,14 +93,17 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Classes\Adress.cs" />
+    <Compile Include="Classes\Address.cs" />
     <Compile Include="Classes\City.cs" />
     <Compile Include="Classes\Comment.cs" />
     <Compile Include="Classes\Coordinate.cs" />
     <Compile Include="Classes\Country.cs" />
     <Compile Include="Classes\Departement.cs" />
     <Compile Include="Classes\Event.cs" />
+    <Compile Include="Classes\EventRide.cs" />
     <Compile Include="Classes\Region.cs" />
+    <Compile Include="Classes\Ride.cs" />
+    <Compile Include="Classes\RideAddress.cs" />
     <Compile Include="Classes\User.cs" />
     <Compile Include="Ecrans\AddEventView.xaml.cs">
       <DependentUpon>AddEventView.xaml</DependentUpon>

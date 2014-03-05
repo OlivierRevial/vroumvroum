@@ -19,6 +19,9 @@ public class HibernateUtils {
 
 	// Renvoie une session Hibernate
 	public static Session getSession() throws HibernateException {
+//		if(sessionFactory.getCurrentSession() != null && sessionFactory.getCurrentSession().isOpen()) {
+//			return sessionFactory.getCurrentSession();
+//		}
 		return sessionFactory.openSession();
 	}
 }

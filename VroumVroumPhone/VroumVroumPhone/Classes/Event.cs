@@ -11,6 +11,8 @@ namespace VroumVroumPhone.Classes
         public int id { get; set; }
         public string name { get; set; }
         public string description { get; set; }
+
+        public int nbParticipants { get; set; }
         //public DateTime createdAt { get; set; }
         //public DateTime updatedAt { get; set; }
         //public Adress address { get; set; }
@@ -19,6 +21,7 @@ namespace VroumVroumPhone.Classes
         //public List<User> organizers { get; set; }
         //public List<User> guests { get; set; }
         //public List<Comment> comments { get; set; }
+        public List<EventRide> rides { get; set; }
         public Event()
         {
             this.name = "";

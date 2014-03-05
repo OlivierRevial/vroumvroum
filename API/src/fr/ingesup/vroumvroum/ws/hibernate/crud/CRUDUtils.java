@@ -23,11 +23,11 @@ public class CRUDUtils {
 		try {
 			// Get results list
 			List<T> results = q.list();
-			session.close();
+//			session.close();
 			return results;
 		} catch (HibernateException e)
 		{
-			session.close();
+//			session.close();
 			return null;
 		}
 	}
@@ -42,7 +42,7 @@ public class CRUDUtils {
 		if(obj.getClass() != clasz) {
 			throw new TypeMismatchException("Cannot convert type " + clasz.toString() + " to type " + obj.getClass());
 		}
-		session.close();
+//		session.close();
 		return obj;
 	}
 	
@@ -54,7 +54,7 @@ public class CRUDUtils {
 		
 		tx.commit();
 		
-		session.close();
+//		session.close();
 		
 		return object;
 	}
@@ -79,7 +79,7 @@ public class CRUDUtils {
 		
 		tx.commit();
 		
-		session.close();
+//		session.close();
 		
 		if(nbRowsDeleted == 0) {
 			throw new NoSuchIdException(id);
