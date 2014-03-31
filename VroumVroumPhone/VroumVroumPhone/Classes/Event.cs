@@ -15,7 +15,7 @@ namespace VroumVroumPhone.Classes
         public int nbParticipants { get; set; }
         //public DateTime createdAt { get; set; }
         //public DateTime updatedAt { get; set; }
-        //public Adress address { get; set; }
+        //public Address address { get; set; }
         //public User owner { get; set; }
         //public List<User> participants { get; set; }
         //public List<User> organizers { get; set; }

@@ -9,6 +9,5 @@ namespace VroumVroumPhone.Classes
     {
         public int id { get; set; }
         public List<RideAddress> ridesAddresses { get; set; }
-
     }
 }

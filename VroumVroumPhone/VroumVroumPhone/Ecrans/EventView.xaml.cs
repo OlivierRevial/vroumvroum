@@ -28,8 +28,39 @@ namespace VroumVroumPhone.Ecrans
         public EventView()
         {
             InitializeComponent();
+            buildEventViewAddBar();
             MyMap = new Map();
             theEvent.Children.Add(MyMap);
+        }
+        private void buildEventViewAddBar()
+        {
+            ApplicationBar = new ApplicationBar();
+            ApplicationBar.Mode = ApplicationBarMode.Minimized;
+            ApplicationBar.Opacity = 1.0;
+            ApplicationBar.IsVisible = true;
+            ApplicationBar.IsMenuEnabled = true;
+
+            //Bouton Sauvegarder
+            ApplicationBarIconButton btnEdit = new ApplicationBarIconButton();
+            btnEdit.IconUri = new Uri("/Assets/Icons/Dark/edit.png", UriKind.Relative);
+            btnEdit.Text = "Modifier";
+            btnEdit.Click += new EventHandler(btnEdit_Click);
+            ApplicationBar.Buttons.Add(btnEdit);
+
+            //Bouton Annuler
+            ApplicationBarIconButton btnCancel = new ApplicationBarIconButton();
+            btnCancel.IconUri = new Uri("/Assets/Icons/Dark/cancel.png", UriKind.Relative);
+            btnCancel.Text = "Annuler";
+            btnCancel.Click += new EventHandler(btnCancel_Click);
+            ApplicationBar.Buttons.Add(btnCancel);
+        }
+        private void btnEdit_Click(Object sender, EventArgs e)
+        {
+            MessageBox.Show("Edit...");
+        }
+        private void btnCancel_Click(Object sender, EventArgs e)
+        {
+            MessageBox.Show("Cancel...");
         }
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {

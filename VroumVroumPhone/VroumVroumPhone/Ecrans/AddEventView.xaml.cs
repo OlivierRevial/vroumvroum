@@ -20,9 +20,9 @@ namespace VroumVroumPhone.Ecrans
             DateTime date = DateTime.Now;
             beginDate.Value = date;
             endDate.Value = date;
-            buildCocktailAddBar();
+            buildEventViewAddBar();
         }
-        private void buildCocktailAddBar()
+        private void buildEventViewAddBar()
         {
             ApplicationBar = new ApplicationBar();
             ApplicationBar.Mode = ApplicationBarMode.Minimized;
