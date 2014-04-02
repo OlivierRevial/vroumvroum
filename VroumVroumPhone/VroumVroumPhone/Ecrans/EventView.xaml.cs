@@ -56,11 +56,11 @@ namespace VroumVroumPhone.Ecrans
         }
         private void btnEdit_Click(Object sender, EventArgs e)
         {
-            MessageBox.Show("Edit...");
+            NavigationService.Navigate(new Uri("/Ecrans/EditEventView.xaml", UriKind.Relative));
         }
         private void btnCancel_Click(Object sender, EventArgs e)
         {
-            MessageBox.Show("Cancel...");
+            NavigationService.GoBack();
         }
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
