@@ -168,24 +168,42 @@ namespace VroumVroumPhone.Ecrans
         }
         
         private void drawRide(IEnumerable<GeoCoordinate> ride, Color color) {
-            RideQuery = new RouteQuery();
+            try
+            {
+                RideQuery = new RouteQuery();
 
-            RouteColor = color;
-            RideQuery.Waypoints = ride;
-            RideQuery.TravelMode = TravelMode.Driving;
-            RideQuery.QueryCompleted += RideQuery_QueryCompleted;
-            RideQuery.QueryAsync();
+                RouteColor = color;
+                RideQuery.Waypoints = ride;
+                RideQuery.TravelMode = TravelMode.Driving;
+                RideQuery.QueryCompleted += RideQuery_QueryCompleted;
+                RideQuery.QueryAsync();
+            }
+            catch
+            {
+                MessageBox.Show("Une erreur est survenue sur la génération de la carte.");
+                NavigationService.GoBack();
+            }
+            
         }
         void RideQuery_QueryCompleted(object sender, QueryCompletedEventArgs<Route> e)
         {
-            if (e.Error == null)
+            try
             {
-                Route MyRoute = e.Result;
-                MapRoute MyMapRoute = new MapRoute(MyRoute);
-                MyMapRoute.Color = RouteColor;
-                this.map1.AddRoute(MyMapRoute);
-                RideQuery.Dispose();
+                if (e.Error == null)
+                {
+                    Route MyRoute = e.Result;
+                    MapRoute MyMapRoute = new MapRoute(MyRoute);
+                    MyMapRoute.Color = RouteColor;
+                    this.map1.AddRoute(MyMapRoute);
+                    RideQuery.Dispose();
+                }
             }
+            catch
+            {
+                MessageBox.Show("Une erreur est survenue sur la génération de la carte.");
+                NavigationService.GoBack();
+            }
+            
         }
 
         private GeoCoordinate convertToGeoCoordinates(Coordinate coord) {
